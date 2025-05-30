@@ -36,3 +36,13 @@
   * Enable Cloud Logging and Cloud Monitoring with simple configuration
   * Uses Container-Optimized OS, a hardened OS built by Google
   * Provides support for Persistent disks and Local SSD
+
+## Thirteen Steps to create a cluster and deploy a microservice
+1. Create a Kubernetes cluster with the default node pool 
+    * gcloud container clusters create or use cloud console
+2. Login to Cloud Shell
+3. Connect to the Kubernetes Cluster
+   * gcloud container clusters get-credentials my-cluster --zone us-central1-c --project evident-axle-461419-m9
+4. Deploy Microservice to Kubernetes
+   * Create deployment & service using kubectl commands
+     * kubectl create deployment hello-world-rest-api --image=gongvictorfeng/hello
