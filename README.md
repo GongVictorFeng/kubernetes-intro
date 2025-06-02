@@ -74,3 +74,16 @@
     * Delete deployment - kubectl delete deployment
 14. Delete the cluster
     * gcloud container cluster delete
+
+## Google Kubernetes Engine (GKE) Terminologies
+  * Cluster: Group of Compute Engine instances
+    * Master Node(s) - Manages the cluster
+    * Worker Node(s) - Run the workloads (pods)
+  * Master Node (Control Plane) components:
+    * API Server - Handle all communication for a kubernetes cluster (from nodes and outside)
+    * Scheduler - Decides placement of pods
+    * Control Manager - Manages deployments & replicasets
+    * etcd - Distributed database storing the cluster state
+  * Worker Node components:
+    * Runs pods
+    * Kubelet - Manages communication with master node(s)
