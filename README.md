@@ -37,12 +37,40 @@
   * Uses Container-Optimized OS, a hardened OS built by Google
   * Provides support for Persistent disks and Local SSD
 
-## Thirteen Steps to create a cluster and deploy a microservice
+## Fourteen Steps to create a cluster and deploy a microservice
 1. Create a Kubernetes cluster with the default node pool 
     * gcloud container clusters create or use cloud console
 2. Login to Cloud Shell
 3. Connect to the Kubernetes Cluster
    * gcloud container clusters get-credentials my-cluster --zone us-central1-c --project evident-axle-461419-m9
-4. Deploy Microservice to Kubernetes
+4. Create a docker image  and push it to docker hub
+   * gongvictorfeng/hello-word-java:0.0.1-SNAPSHOT
+   * docker push gongvictorfeng/hello-world-java:0.0.1-SNAPSHOT
+5. Deploy Microservice to Kubernetes
    * Create deployment & service using kubectl commands
-     * kubectl create deployment hello-world-rest-api --image=gongvictorfeng/hello-world-rest-api:0.0.1.RELEASE
+     * kubectl create deployment hello-world-java --image=gongvictorfeng/hello-world-java:0.0.1-SNAPSHOT
+     * kubectl expose deployment hello-world-java --type=LoadBalancer --port=5000
+6. Increase number of instances of the microservice:
+   * kubectl scale deployment hello-world-java --replicas=3
+7. Increase number of nodes in Kubernetes cluster:
+   * gcloud container clusters resize my-cluster --node-pool default-pool --num-nodes=2 --zone=us-central1-c
+8. Setup auto-scaling for the microservice:
+   * kubectl autoscale deployment hello-world-java --max=4 --cpu-percent=70 
+     * Also called horizontal pod autoscaling -HPA - kubectl get hpa
+9. Setup auto-scaling for the  Kubernetes Cluster
+   * gcloud container clusters update cluster-name --enable-autoscaling --min-nodes=1 --max-nodes=10
+10. Add some application configuration for the microservice
+    * Config Map - kubectl create configmap hello-world-java-config --from-literal=RDS_DB_NAME=todos
+11. Add password configuration for the microservice
+    * Kubernetes Secrets - kubectl create secret generic hello-world-java-secrets-1 --from-literal=RDS_PASSWORD=dummytodos
+12. Deploy a new microservice which needs nodes with a GPU attached 
+    * Attach a new node pool with GPU instances to the cluster
+      * gcloud container node-pools create POOL_NAME --cluster CLUSTER_NAME 
+      * gcloud container node-pools list --cluster CLUSTER_NAME
+    * Deploy the new microservice to the new pool by setting up nodeSelector in the deployment.yaml
+      * nodeSelector:cloud.google.com/gke-nodepool:POOL_NAME
+13. Delete the Microservices
+    * Delete service - kubectl delete service
+    * Delete deployment - kubectl delete deployment
+14. Delete the cluster
+    * gcloud container cluster delete
