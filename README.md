@@ -45,4 +45,4 @@
    * gcloud container clusters get-credentials my-cluster --zone us-central1-c --project evident-axle-461419-m9
 4. Deploy Microservice to Kubernetes
    * Create deployment & service using kubectl commands
-     * kubectl create deployment hello-world-rest-api --image=gongvictorfeng/hello
+     * kubectl create deployment hello-world-rest-api --image=gongvictorfeng/hello-world-rest-api:0.0.1.RELEASE
