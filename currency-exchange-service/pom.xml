@@ -116,7 +116,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>gongvictorfeng/docker-intro-${project.artifactId}:${project.version}</name>
+						<name>gongvictorfeng/${project.artifactId}:${project.version}</name>
 					</image>
 					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
 				</configuration>
