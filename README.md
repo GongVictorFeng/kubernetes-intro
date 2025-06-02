@@ -99,3 +99,18 @@
     * Ports 
     * Volumes (Shared persistent disks)
   * Pod statuses: Running/Pending/Succeeded/Failed/ Unknown
+
+## Kubernetes - Deployment vs Replica Set
+  * A deployment is created for each microservice
+    * kubectl create deployment m1 --image=m1:v1
+    * Deployment represents a microservice (with all its releases)
+    * Deployment manages new release ensuring zero downtime
+      * kubectl set image deployment hello-world-java hello-world-java=gongvictorfeng/hello-world-java:0.0.2-SNAPSHOT
+  * Replica set ensures that a specific number of pods are running for a specific microservice version
+    * kubectl get replicasets
+    * kubectl scale deployment m1 --replicas=2
+    * Even if one of the pods is killed, replica set will launch a new one
+  * Deploy V2 of microservice - Creates a new replica set
+    * kubectl set image deployment m1 m1=m1:v2
+    * V2 Replica Set is created
+    * Deployment updates V1 Replica set and V2 Replica Set based on the release strategies
