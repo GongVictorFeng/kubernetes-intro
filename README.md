@@ -131,3 +131,6 @@
         * Use case: You want to create individual Load Balancer for each microservice 
       * NodePort: Exposes Service on each Node's IP at a static port (the Node Port)
         * Use case: You Do not want to create an external Load balancer for each microservice (you can create one ingress component to load balance multiple microservices)
+
+## Deploy currency-exchange and currency-conversion services
+![microservices-deployment.png](assets%2Fmicroservices-deployment.png)
