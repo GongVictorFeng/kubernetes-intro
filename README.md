@@ -114,3 +114,20 @@
     * kubectl set image deployment m1 m1=m1:v2
     * V2 Replica Set is created
     * Deployment updates V1 Replica set and V2 Replica Set based on the release strategies
+
+## Kubernetes - Service
+  * Each Pod has its own IP address:
+    * How to ensure that external users are not impacted when:
+      * A pod fails and is replaced by replica set
+      * A new release happens and all existing pods of old release are replaced by ones of new version
+  * Create Service
+    * kubectl expose deployment NAME --type=LoadBalancer --port=5000
+      * Expose Pods to outside world using a stable IP Address
+      * Ensures that the external world does not get impacted as pods go down and come up
+  * Three Types:
+    * ClusterIP: Exposes Service on a cluster-internal IP
+      * Use case: You want your microservice only to be available inside the cluster (intra cluster communication)
+      * LoadBalancer: Exposes Service externally using a cloud provider's load balancer
+        * Use case: You want to create individual Load Balancer for each microservice 
+      * NodePort: Exposes Service on each Node's IP at a static port (the Node Port)
+        * Use case: You Do not want to create an external Load balancer for each microservice (you can create one ingress component to load balance multiple microservices)
