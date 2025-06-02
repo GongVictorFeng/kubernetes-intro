@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.docker</groupId>
-	<artifactId>hello-word-java</artifactId>
+	<artifactId>hello-world-java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hello-word-java</name>
 	<description>Demo project for Spring Boot</description>
