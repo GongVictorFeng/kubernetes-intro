@@ -87,3 +87,15 @@
   * Worker Node components:
     * Runs pods
     * Kubelet - Manages communication with master node(s)
+
+## Kubernetes - Pods
+  * Smallest deployable unit in Kubernetes
+  * A Pod contains one or more containers (usually one container)
+  * Each Pod is assigned an ephemeral IP address
+  * All containers in a pod share:
+    * Network
+    * Storage
+    * IP Address
+    * Ports 
+    * Volumes (Shared persistent disks)
+  * Pod statuses: Running/Pending/Succeeded/Failed/ Unknown
