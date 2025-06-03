@@ -134,3 +134,61 @@
 
 ## Deploy currency-exchange and currency-conversion services
 ![microservices-deployment.png](assets%2Fmicroservices-deployment.png)
+
+## Declarative configuration - Kubernetes YAML
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  labels:
+    app: currency-exchange
+  name: currency-exchange
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currency-exchange
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: currency-exchange
+    spec:
+      containers:
+      - image: gongvictorfeng/currency-exchange-service:0.0.11-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        name: currency-exchange-service
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: currency-exchange
+  name: currency-exchange
+  namespace: default
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: currency-exchange
+  sessionAffinity: None
+  type: LoadBalancer
+```
+  * It has a pod, which is part of the deployment
+    * Inside the pod, there is a container running, the specification of container is present  from line 163 to line 168
+    * There can be multiple containers in the pod
+    * Line 162 is the label applied to the entire pod
+  * Inside the deployment, the template of the pod is defined
+    * Line 146 is the label attached to the deployment
+    * Inside the spec, we are trying to match the deployment to the pods
+  * The service (started from line 169) matches again against the deployment
